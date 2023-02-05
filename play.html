@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Simon</title>
+        <link rel="icon" type="image/svg" href="/images/FaviconSimon.svg">
+    </head>
+    <body>
+        <header>
+            <h1 id="SimonTitle">Simon</h1>
+            <nav>
+                <ul id="navigation">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="play.html">Play</a></li>
+                    <li><a href="scores.html">Scores</a></li>
+                </ul>
+            </nav>
+            <hr>
+        </header>
+        <main>
+            <div class="players">
+                Player:
+                <span class="player-name">Mystery player</span>
+            </div>
+
+            <div>
+                <label for="count">Score</label>
+                <input type="text" id="count" value="--" readonly>
+            </div>
+
+            <br>
+
+            <div>
+                <button>Reset</button>
+            </div>
+
+            <br>
+
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <button>
+                                <svg id="Green" data-name="Green" 
+                                viewBox="0 0 275 250"
+                                height="100"
+                                width="100"
+                                >
+                                <defs>
+                                    <style>
+                                    .greenButton {
+                                        fill: #37cc85;
+                                    }
+                                    </style>
+                                </defs>
+                                <path class="greenButton" d="m273.5,0C122.45,0,0,122.45,0,273.5h273.5V0Z"/>
+                                </svg>
+                            </button>
+                        </td>
+                        <td>
+                            <button>
+                                <svg id="Red" data-name="Red" 
+                                viewBox="0 0 275 250"
+                                height="100"
+                                width="100"
+                                >
+                                <defs>
+                                    <style>
+                                    .redButton {
+                                        fill: #c93d3d;
+                                    }
+                                    </style>
+                                </defs>
+                                <path class="redButton" d="m273.5,273.5C273.5,122.45,151.05,0,0,0v273.5h273.5Z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button>
+                                <svg id="Yellow" data-name="Yellow" 
+                                viewBox="0 0 275 265"
+                                height="105"
+                                width="100"
+                                >
+                                <defs>
+                                    <style>
+                                    .yellowButton {
+                                        fill: #cce55f;
+                                    }
+                                    </style>
+                                </defs>
+                                <path class="yellowButton" d="m0,0c0,151.05,122.45,273.5,273.5,273.5V0H0Z"/>
+                                </svg>
+                            </button>
+                        </td>
+                        <td>
+                            <button>
+                                <svg id="Blue" data-name="Blue" 
+                                viewBox="0 0 275 265"
+                                height="105"
+                                width="100"
+                                >
+                                <defs>
+                                    <style>
+                                    .blueButton {
+                                        fill: #65cde5;
+                                    }
+                                    </style>
+                                </defs>
+                                <path class="blueButton" d="m0,0v273.5c151.05,0,273.5-122.45,273.5-273.5H0Z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </main>
+
+        <footer>
+            <hr>
+            <p>Ethan Bishop</p>
+            <p><a href="https://github.com/ethanguin/Simon">Github Repository</a></p>
+        </footer>
+    </body>
+</html>

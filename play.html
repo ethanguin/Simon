@@ -5,126 +5,63 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Simon</title>
         <link rel="icon" type="image/svg" href="/images/FaviconSimon.svg">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"/>
+        <link href="style.css" rel="stylesheet"/>
     </head>
-    <body>
-        <header>
-            <h1 id="SimonTitle">Simon</h1>
-            <nav>
-                <ul id="navigation">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="play.html">Play</a></li>
-                    <li><a href="scores.html">Scores</a></li>
-                    <li><a href="about.html">About</a></li>
-                </ul>
-            </nav>
-            <hr>
+    <body class="text-bg-light p-3">
+        <header class="container-fluid">
+            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">Simon</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                  <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="index.html">Home</a>
+                    <a class="nav-item nav-link" href="about.html">About</a>
+                    <a class="nav-item nav-link active" href="play.html">Play</a>
+                    <a class="nav-item nav-link" href="scores.html">Scores</a>
+                  </div>
+                </div>
+              </nav>
         </header>
-        <main>
+        <main class="container-fluid text-bg-info text-center">
             <div class="players">
                 Player:
                 <span class="player-name">Mystery player</span>
             </div>
 
-            <div>
-                <label for="count">Score</label>
-                <input type="text" id="count" value="--" readonly>
-            </div>
-
-            <br>
-
-            <div>
-                <button>Reset</button>
-            </div>
-
-            <br>
-
-            <div>
-                <table>
-                    <tr>
-                        <td>
-                            <button>
-                                <svg id="Green" data-name="Green" 
-                                viewBox="0 0 275 250"
-                                height="100"
-                                width="100"
-                                >
-                                <defs>
-                                    <style>
-                                    .greenButton {
-                                        fill: #37cc85;
-                                    }
-                                    </style>
-                                </defs>
-                                <path class="greenButton" d="m273.5,0C122.45,0,0,122.45,0,273.5h273.5V0Z"/>
-                                </svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button>
-                                <svg id="Red" data-name="Red" 
-                                viewBox="0 0 275 250"
-                                height="100"
-                                width="100"
-                                >
-                                <defs>
-                                    <style>
-                                    .redButton {
-                                        fill: #c93d3d;
-                                    }
-                                    </style>
-                                </defs>
-                                <path class="redButton" d="m273.5,273.5C273.5,122.45,151.05,0,0,0v273.5h273.5Z"/>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button>
-                                <svg id="Yellow" data-name="Yellow" 
-                                viewBox="0 0 275 265"
-                                height="105"
-                                width="100"
-                                >
-                                <defs>
-                                    <style>
-                                    .yellowButton {
-                                        fill: #cce55f;
-                                    }
-                                    </style>
-                                </defs>
-                                <path class="yellowButton" d="m0,0c0,151.05,122.45,273.5,273.5,273.5V0H0Z"/>
-                                </svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button>
-                                <svg id="Blue" data-name="Blue" 
-                                viewBox="0 0 275 265"
-                                height="105"
-                                width="100"
-                                >
-                                <defs>
-                                    <style>
-                                    .blueButton {
-                                        fill: #65cde5;
-                                    }
-                                    </style>
-                                </defs>
-                                <path class="blueButton" d="m0,0v273.5c151.05,0,273.5-122.45,273.5-273.5H0Z"/>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <div class="game">
+                <div class="button-container">
+                  <button class="button-top-left"></button>
+                  <button class="button-top-right"></button>
+                  <button class="button-bottom-left"></button>
+                  <button class="button-bottom-right"></button>
+                  <div class="controls center">
+                    <div class="game-name">Simon<sup>&reg;</sup></div>
+                    <div class="score center">--</div>
+                    <button class="btn btn-primary">Reset</button>
+                  </div>
+                </div>
+              </div>
 
         </main>
 
-        <footer>
-            <hr>
-            <p>Ethan Bishop</p>
-            <p><a href="https://github.com/ethanguin/Simon">Github Repository</a></p>
-        </footer>
+        <footer class="bg-light text-muted">
+            <div class="container-fluid">
+              <span class="text-reset">Ethan Bishop</span>
+              <a
+                class="text-reset"
+                href="https://github.com/webprogramming260/simon-css"
+                >Source</a
+              >
+            </div>
+          </footer>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,0 +1,154 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+  }
+  
+  header {
+    flex: 0 80px;
+  }
+  
+  main {
+    flex: 1 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  footer {
+    flex: 0 30px;
+  }
+  
+  menu {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+  }
+  
+  .navbar-brand {
+    padding-left: 0.3em;
+    border-bottom: solid rgb(182, 182, 182) thin;
+  }
+  
+  menu .nav-item {
+    padding: 0 0.3em;
+  }
+  
+  footer a {
+    float: right;
+  }
+  
+  #count {
+    color: rgb(246, 239, 158);
+  }
+  
+  .players {
+    flex: 1;
+    width: 100%;
+    padding: 0.5em;
+  }
+  
+  .player-name {
+    color: rgb(0, 50, 88);
+  }
+  
+  .game {
+    background: rgb(37, 37, 37);
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px rgb(69, 69, 69);
+    width: 60vw;
+    height: 60vw;
+    position: absolute;
+    min-width: 250px;
+    min-height: 250px;
+    max-width: min(60vmin, 1000px);
+    max-height: min(60vmin, 1000px);
+  }
+  
+  .button-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .button-top-left {
+    border-radius: 100% 0 0 0;
+    margin: 20px 0 0 20px;
+    background-color: #37cc85;
+  }
+  
+  .button-top-right {
+    border-radius: 0 100% 0 0;
+    margin: 20px 20px 0 0;
+    background-color: #c93d3d;
+  }
+  
+  .button-bottom-left {
+    border-radius: 0 0 0 100%;
+    margin: 0 0 20px 20px;
+    background-color: #cce55f;
+  }
+  
+  .button-bottom-right {
+    border-radius: 0 0 100% 0;
+    margin: 0 20px 20px 0;
+    background-color: #65cde5;
+  }
+  
+  .controls {
+    position: absolute;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(37, 37, 37);
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  
+  .game-name {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  .score {
+    position: absolute;
+    text-align: center;
+    font-size: 20px;
+    font-family: monospace;
+    font-weight: bold;
+    color: red;
+    cursor: default;
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    border: solid thin rgb(117, 0, 0);
+    background-color: white;
+  }
+  
+  .center {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  
+  @media (max-height: 600px) {
+    header {
+      display: none;
+    }
+    footer {
+      display: none;
+    }
+    main {
+      flex: 1 100vh;
+    }
+  }
+  

@@ -1,36 +1,28 @@
+const playerName = document.getElementById("mystery-player");
+playerName.innerHTML = localStorage.getItem("username");
+
 const btnDescriptions = [
-    { file: 'sound1.mp3', hue: 120 },
-    { file: 'sound2.mp3', hue: 0 },
-    { file: 'sound3.mp3', hue: 60 },
-    { file: 'sound4.mp3', hue: 240 },
+    {hue: 151 },
+    {hue: 0 },
+    {hue: 71 },
+    {hue: 191 },
   ];
   
   class Button {
     constructor(description, el) {
       this.el = el;
       this.hue = description.hue;
-      this.sound = loadSound(description.file);
-      this.paint(25);
+      this.paint(60);
     }
   
     paint(level) {
-      const background = `hsl(${this.hue}, 100%, ${level}%)`;
+      const background = `hsl(${this.hue}, 70%, ${level}%)`;
       this.el.style.backgroundColor = background;
     }
   
-    async press(volume) {
-      this.paint(50);
-      await this.play(volume);
-      this.paint(25);
-    }
-  
-    // Work around Safari's rule to only play sounds if given permission.
-    async play(volume = 1.0) {
-      this.sound.volume = volume;
-      await new Promise((resolve) => {
-        this.sound.onended = resolve;
-        this.sound.play();
-      });
+    press() {
+      this.paint(70);
+      this.paint(30);
     }
   }
   
@@ -39,16 +31,14 @@ const btnDescriptions = [
     allowPlayer;
     sequence;
     playerPlaybackPos;
-    mistakeSound;
   
     constructor() {
       this.buttons = new Map();
       this.allowPlayer = false;
       this.sequence = [];
       this.playerPlaybackPos = 0;
-      this.mistakeSound = loadSound('error.mp3');
   
-      document.querySelectorAll('.game-button').forEach((el, i) => {
+      document.querySelectorAll(".game-button").forEach((el, i) => {
         if (i < btnDescriptions.length) {
           this.buttons.set(el.id, new Button(btnDescriptions[i], el));
         }
@@ -65,7 +55,7 @@ const btnDescriptions = [
   
         if (this.sequence[this.playerPlaybackPos].el.id === button.id) {
           this.playerPlaybackPos++;
-          if (this.playerPlaybackPos === this.sequence.length) {
+          if (this.playbackPosition === this.sequence.length) {
             this.playerPlaybackPos = 0;
             this.addButton();
             this.updateScore(this.sequence.length - 1);
@@ -74,7 +64,6 @@ const btnDescriptions = [
           this.allowPlayer = true;
         } else {
           this.saveScore(this.sequence.length - 1);
-          this.mistakeSound.play();
           await this.buttonDance(2);
         }
       }
@@ -171,8 +160,4 @@ const btnDescriptions = [
         resolve(true);
       }, milliseconds);
     });
-  }
-  
-  function loadSound(filename) {
-    return new Audio('assets/' + filename);
   }

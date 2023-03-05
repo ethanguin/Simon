@@ -1,163 +1,158 @@
-const playerName = document.getElementById("mystery-player");
-playerName.innerHTML = localStorage.getItem("username");
+class Button {
+    constructor(buttonID, element) {
+        this.element = element;
+        this.hue = buttonID.hue;
+        this.setLightness(30);
+    }
 
-const btnDescriptions = [
-    {hue: 151 },
-    {hue: 0 },
-    {hue: 71 },
-    {hue: 191 },
-  ];
-  
-  class Button {
-    constructor(description, el) {
-      this.el = el;
-      this.hue = description.hue;
-      this.paint(60);
+    setLightness(lightness) {
+        const background = `hsl(${this.hue}, 75%, ${lightness}%)`;
+        this.element.style.backgroundColor = background;
     }
-  
-    paint(level) {
-      const background = `hsl(${this.hue}, 70%, ${level}%)`;
-      this.el.style.backgroundColor = background;
+
+    async press() {
+        this.setLightness(65);
+        await delay(100);
+        this.setLightness(30);
     }
-  
-    press() {
-      this.paint(70);
-      this.paint(30);
-    }
-  }
-  
-  class Game {
+}
+
+const buttonDescriptions = [{hue: 151}, {hue: 0}, {hue: 71}, {hue: 191}];
+class Game {
     buttons;
     allowPlayer;
     sequence;
-    playerPlaybackPos;
-  
+    playbackPosition;
+
     constructor() {
-      this.buttons = new Map();
-      this.allowPlayer = false;
-      this.sequence = [];
-      this.playerPlaybackPos = 0;
-  
-      document.querySelectorAll(".game-button").forEach((el, i) => {
-        if (i < btnDescriptions.length) {
-          this.buttons.set(el.id, new Button(btnDescriptions[i], el));
-        }
-      });
-  
-      const playerNameEl = document.querySelector('.player-name');
-      playerNameEl.textContent = this.getPlayerName();
-    }
-  
-    async pressButton(button) {
-      if (this.allowPlayer) {
+        this.buttons = new Map();
         this.allowPlayer = false;
-        await this.buttons.get(button.id).press(1.0);
-  
-        if (this.sequence[this.playerPlaybackPos].el.id === button.id) {
-          this.playerPlaybackPos++;
-          if (this.playbackPosition === this.sequence.length) {
-            this.playerPlaybackPos = 0;
-            this.addButton();
-            this.updateScore(this.sequence.length - 1);
-            await this.playSequence();
-          }
-          this.allowPlayer = true;
-        } else {
-          this.saveScore(this.sequence.length - 1);
-          await this.buttonDance(2);
-        }
-      }
+        this.sequence = [];
+        this.playbackPosition = 0;
+        
+        document.querySelectorAll('.game-button').forEach((element, i) => {
+            if(i < buttonDescriptions.length) {
+                this.buttons.set(element.id, new Button(buttonDescriptions[i], element));
+                console.log(buttonDescriptions[i]);
+            }
+        });
+
+        const playerName = document.getElementById("mystery-player");
+        playerName.innerHTML = this.getPlayerName();
     }
-  
+
+    async pressButton(button) {
+        if(this.allowPlayer) {
+            console.log(`button ${button.id} pressed`);
+            this.allowPlayer = false;
+            await this.buttons.get(button.id).press();
+
+            if(this.sequence[this.playbackPosition].element.id === button.id) {
+                this.playbackPosition++;
+                if(this.playbackPosition === this.sequence.length) {
+                    this.playbackPosition = 0;
+                    this.addButton();
+                    this.updateScore(this.sequence.length - 1);
+                    await this.playSequence();
+                }
+                this.allowPlayer = true;
+            } else {
+                this.saveScore(this.sequence.length - 1);
+                await this.buttonDance(2);
+            }
+        }
+    }
+
     async reset() {
-      this.allowPlayer = false;
-      this.playerPlaybackPos = 0;
-      this.sequence = [];
-      this.updateScore('--');
-      await this.buttonDance(1);
-      this.addButton();
-      await this.playSequence();
-      this.allowPlayer = true;
+        console.log('reset')
+        this.allowPlayer = false;
+        this.playbackPosition = 0;
+        this.sequence = [];
+        this.updateScore('--');
+        await this.buttonDance(1);
+        this.addButton();
+        await this.playSequence();
+        this.allowPlayer = true;
     }
-  
-    getPlayerName() {
-      return localStorage.getItem('userName') ?? 'Mystery player';
-    }
-  
+
     async playSequence() {
-      await delay(500);
-      for (const btn of this.sequence) {
-        await btn.press(1.0);
-        await delay(100);
-      }
+        await delay(500);
+        for (const btn of this.sequence) {
+            await btn.press();
+            await delay(400);
+        }
     }
-  
+
     addButton() {
-      const btn = this.getRandomButton();
-      this.sequence.push(btn);
+        const btn = this.getRandomButton();
+        this.sequence.push(btn);
     }
-  
+
     updateScore(score) {
-      const scoreEl = document.querySelector('#score');
-      scoreEl.textContent = score;
+        const scoreElement = document.getElementById("score");
+        scoreElement.innerHTML = score;
     }
-  
+
     async buttonDance(laps = 1) {
-      for (let step = 0; step < laps; step++) {
-        for (const btn of this.buttons.values()) {
-          await btn.press(0.0);
+        for(let step = 0; step < laps; step++) {
+            for(const btn of this.buttons.values()) {
+                await btn.press();
+                await delay(400);
+            }
         }
-      }
     }
-  
+
     getRandomButton() {
-      let buttons = Array.from(this.buttons.values());
-      return buttons[Math.floor(Math.random() * this.buttons.size)];
+        let buttons = Array.from(this.buttons.values());
+        return buttons[Math.floor(Math.random() * this.buttons.size)];
     }
-  
+
     saveScore(score) {
-      const userName = this.getPlayerName();
-      let scores = [];
-      const scoresText = localStorage.getItem('scores');
-      if (scoresText) {
-        scores = JSON.parse(scoresText);
-      }
-      scores = this.updateScores(userName, score, scores);
-  
-      localStorage.setItem('scores', JSON.stringify(scores));
-    }
-  
-    updateScores(userName, score, scores) {
-      const date = new Date().toLocaleDateString();
-      const newScore = { name: userName, score: score, date: date };
-  
-      let found = false;
-      for (const [i, prevScore] of scores.entries()) {
-        if (score > prevScore.score) {
-          scores.splice(i, 0, newScore);
-          found = true;
-          break;
+        const username = this.getPlayerName();
+        let scores = [];
+        const scoresText = localStorage.getItem('scores');
+        if(scoresText) {
+            scores = JSON.parse(scoresText);
         }
-      }
-  
-      if (!found) {
-        scores.push(newScore);
-      }
-  
-      if (scores.length > 10) {
-        scores.length = 10;
-      }
-  
-      return scores;
+        scores = this.updateScores(username, score, scores);
+
+        localStorage.setItem("scores", JSON.stringify(scores));
     }
-  }
-  
-  const game = new Game();
-  
-  function delay(milliseconds) {
+
+    getPlayerName() {
+        return localStorage.getItem('username') ?? 'Mystery player';
+    }
+
+    updateScores(username, score, scores) {
+        const date = new Date().toLocaleDateString();
+        const newScore = {name: username, score: score, date: date};
+        let found = false;
+        for (const [i, prevScore] of scores.entries()) {
+            if (score > prevScore.score) {
+              scores.splice(i, 0, newScore);
+              found = true;
+              break;
+            }
+          }
+      
+          if (!found) {
+            scores.push(newScore);
+          }
+      
+          if (scores.length > 10) {
+            scores.length = 10;
+          }
+      
+          return scores;
+    }
+}
+
+const game = new Game();
+
+function delay(pauseTime) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, milliseconds);
-    });
-  }
+        setTimeout(() => {
+            resolve('success');
+        }, pauseTime);
+    })
+}

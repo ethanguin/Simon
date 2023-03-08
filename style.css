@@ -134,6 +134,10 @@ body {
     background-color: white;
   }
   
+  .progress-bar {
+    width: 25%;
+  }
+
   .center {
     top: 50%;
     left: 50%;

@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ethanguin/Simon/issues"
   },
-  "homepage": "https://github.com/ethanguin/Simon#readme"
+  "homepage": "https://github.com/ethanguin/Simon#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

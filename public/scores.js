@@ -6,8 +6,12 @@ async function loadScores() {
     scores = await response.json();
 
     // Save the scores in case we go offline in the future
+    localStorage.clear();
     localStorage.setItem('scores', JSON.stringify(scores));
+    console.log('Yup! this is the updated scores');
+    console.log(scores);
   } catch {
+    console.log('error fetching database scores');
     // If there was an error then just use the last saved scores
     const scoresText = localStorage.getItem('scores');
     if (scoresText) {
